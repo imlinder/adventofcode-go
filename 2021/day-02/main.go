@@ -12,6 +12,7 @@ import (
 func main() {
   lines := parseFile("input.txt")
   fmt.Printf("Part 1: %v \n", part1(lines))
+  fmt.Printf("Part 2: %v \n", part2(lines))
 }
 
 func part1(lines []string) int {
@@ -37,6 +38,36 @@ func part1(lines []string) int {
         dep += dist
       case "up":
         dep -= dist
+    }
+  }
+
+  return hor * dep
+}
+
+func part2(lines []string) int {
+  // Horizontal position and depth 
+  hor, dep, aim := 0, 0, 0
+
+  for _, l := range lines {
+
+    // Split line into [instruction, distance]
+    instr := strings.Split(l, " ")
+
+    // Convert distance to int
+    dist, err := strconv.Atoi(instr[1])
+
+    if err != nil {
+      log.Fatal(err)
+    }
+
+    switch instr[0] {
+      case "forward":
+        hor += dist
+        dep += dist * aim
+      case "down":
+        aim += dist
+      case "up":
+        aim -= dist
     }
   }
 
