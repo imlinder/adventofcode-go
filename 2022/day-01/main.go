@@ -50,8 +50,7 @@ func part2(lines []string) int {
 	current := 0
 
 	for _, l := range lines {
-		// If empty line, we are done with this elf, check if it's the highest
-		// value
+		// If empty line, we are done with this elf
 		if len(l) == 0 {
 			caloriesPerElf = append(caloriesPerElf, current)
 			current = 0
