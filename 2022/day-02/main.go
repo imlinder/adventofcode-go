@@ -2,12 +2,8 @@ package main
 
 import (
 	"fmt"
-	"strconv"
-
 	"github.com/imlinder/adventofcode-go/util"
-
-	// "log"
-	// "strconv"
+	"strconv"
 	"strings"
 )
 
@@ -123,9 +119,10 @@ func decodeShape2(shape string, outcome string) string {
 		if shape == "C" {
 			returnShape = "B"
 		}
-		// Needs to draw
+	// Needs to draw
 	case "Y":
 		returnShape = shape
+	// Needs to win
 	case "Z":
 		if shape == "A" {
 			returnShape = "B"
