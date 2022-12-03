@@ -10,6 +10,7 @@ import (
 func main() {
 	lines := util.ReadFile("input.txt")
 	fmt.Printf("Part 1: %v \n", part1(lines))
+	fmt.Printf("Part 2: %v \n", part2(lines))
 }
 
 func part1(lines []string) int {
@@ -20,13 +21,24 @@ func part1(lines []string) int {
 		firstSlice := strings.Split(firstHalf, "")
 		secondSlice := strings.Split(secondHalf, "")
 
-		item := []rune(firstIntersection(firstSlice, secondSlice))
+		item := firstIntersection(firstSlice, secondSlice)
 		if len(item) > 0 {
-			prio := itemPriority(item[0])
+			prio := itemPriority([]rune(item)[0])
 			total += prio
 		}
 	}
 
+	return total
+}
+
+func part2(lines []string) int {
+	total := 0
+	for i := 0; i < len(lines)/3; i++ {
+		group := lines[i*3 : i*3+3]
+		badge := findBadge(group)
+		prio := itemPriority([]rune(badge)[0])
+		total += prio
+	}
 	return total
 }
 
@@ -52,4 +64,22 @@ func itemPriority(letter rune) int {
 		num -= 58
 	}
 	return num
+}
+
+func findBadge(lines []string) string {
+	for _, c := range lines[0] {
+		inAll := true
+		for _, l := range lines[1:] {
+			if !strings.Contains(l, string(c)) {
+				inAll = false
+				break
+			}
+		}
+
+		if inAll {
+			return string(c)
+		}
+	}
+
+	return ""
 }
