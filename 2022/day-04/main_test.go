@@ -4,7 +4,7 @@ import (
 	"testing"
 )
 
-func TestPart1(t *testing.T) {
+func Test(t *testing.T) {
 	lines := []string{
 		"2-4,6-8",
 		"2-3,4-5",
@@ -13,10 +13,15 @@ func TestPart1(t *testing.T) {
 		"6-6,4-6",
 		"2-6,4-8",
 	}
-	want := 2
-	result := part1(lines)
+	wantPart1 := 2
+	wantPart2 := 4
+	resultPart1, resultPart2 := run(lines)
 
-	if result != want {
-		t.Fatalf(`part1(lines) = %v, want %v`, result, want)
+	if resultPart1 != wantPart1 {
+		t.Fatalf(`part1(lines) = %v, want %v`, resultPart1, wantPart2)
+	}
+
+	if resultPart2 != wantPart2 {
+		t.Fatalf(`part1(lines) = %v, want %v`, resultPart1, wantPart2)
 	}
 }
