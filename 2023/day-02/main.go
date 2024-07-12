@@ -2,12 +2,10 @@ package main
 
 import (
 	"fmt"
-	"regexp"
-	"strings"
-
 	"github.com/imlinder/adventofcode-go/util"
+	"regexp"
 	"strconv"
-	// "strings"
+	"strings"
 )
 
 func main() {
@@ -63,5 +61,43 @@ func part1(lines []string) int {
 }
 
 func part2(lines []string) int {
-	return 0
+	var sum int
+
+	for _, l := range lines {
+		if len(l) < 1 {
+			continue
+		}
+		var spl []string = strings.Split(l, ":")
+
+		games := strings.Split(spl[1], ";")
+
+		var max = map[string]int{
+			"red":   0,
+			"green": 0,
+			"blue":  0,
+		}
+
+		for _, game := range games {
+			hands := strings.Split(game, ",")
+			for _, h := range hands {
+				spl := strings.Split(strings.TrimSpace(h), " ")
+				samount, color := spl[0], spl[1]
+				amount, err := strconv.Atoi(samount)
+				if err != nil {
+					panic(err)
+				}
+				max[color] = MaxInt(max[color], amount)
+			}
+		}
+
+		sum += max["red"] * max["green"] * max["blue"]
+	}
+	return sum
+}
+
+func MaxInt(x, y int) int {
+	if x > y {
+		return x
+	}
+	return y
 }
