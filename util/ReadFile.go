@@ -8,7 +8,6 @@ import (
 
 func ReadFile(path string) []string {
 	f, err := os.Open(path)
-
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -20,7 +19,10 @@ func ReadFile(path string) []string {
 	scanner := bufio.NewScanner(f)
 
 	for scanner.Scan() {
-		lines = append(lines, scanner.Text())
+		line := scanner.Text()
+		if len(line) > 0 {
+			lines = append(lines, line)
+		}
 	}
 
 	return lines
