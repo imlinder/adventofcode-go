@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/imlinder/adventofcode-go/util"
+	"slices"
 	"strconv"
 	"strings"
 )
@@ -10,6 +11,7 @@ import (
 func main() {
 	lines := util.ReadFile("input.txt")
 	fmt.Printf("Part 1: %v \n", part1(lines))
+	fmt.Printf("Part 2: %v \n", part2(lines))
 }
 
 func part1(lines []string) int {
@@ -20,6 +22,27 @@ func part1(lines []string) int {
 		if isSafe(strings.Fields(l)) {
 			sum++
 		} else {
+		}
+	}
+
+	return sum
+}
+
+func part2(lines []string) int {
+
+	sum := 0
+
+	for _, l := range lines {
+		if isSafe(strings.Fields(l)) {
+			sum++
+			continue
+		}
+		for i := 0; i < len(strings.Fields(l)); i++ {
+			variant := slices.Delete(strings.Fields(l), i, i+1)
+			if isSafe(variant) {
+				sum++
+				break
+			}
 		}
 	}
 
