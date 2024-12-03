@@ -14,6 +14,7 @@ func main() {
 		panic(err)
 	}
 	fmt.Printf("Part 1: %v \n", part1(string(input)))
+	fmt.Printf("Part 2: %v \n", part2(string(input)))
 }
 
 func part1(input string) int {
@@ -39,4 +40,27 @@ func part1(input string) int {
 	}
 
 	return sum
+}
+
+func part2(input string) int {
+	newInput := removeDonts(input)
+	return part1(newInput)
+}
+
+func removeDonts(s string) string {
+	firstDont := strings.Index(s, "don't()")
+	firstDo := strings.Index(s, "do()")
+
+	if firstDont == -1 || firstDo == -1 {
+		return s
+	}
+
+	// Prevent issues if theres multiple do() after eachother
+	if firstDont > firstDo {
+		newS := s[0:firstDo] + s[firstDo+4:]
+		return removeDonts(newS)
+	}
+
+	newS := s[0:firstDont] + s[firstDo+4:]
+	return removeDonts(newS)
 }
