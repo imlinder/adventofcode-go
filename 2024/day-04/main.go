@@ -11,6 +11,7 @@ import (
 func main() {
 	lines := util.ReadFile("input.txt")
 	fmt.Printf("Part 1: %v \n", part1(lines))
+	fmt.Printf("Part 2: %v \n", part2(lines))
 }
 
 func part1(lines []string) int {
@@ -79,6 +80,40 @@ func part1(lines []string) int {
 					sum++
 				}
 			}
+		}
+	}
+
+	return sum
+}
+
+func part2(lines []string) int {
+
+	sum := 0
+
+	for linePos, line := range lines {
+		for charPos, char := range line {
+
+			if char != 'A' {
+				continue
+			}
+
+			if linePos-1 < 0 || linePos+1 >= len(lines) {
+				continue
+			}
+
+			if charPos-1 < 0 || charPos+1 >= len(line) {
+				continue
+			}
+
+			nw := lines[linePos-1][charPos-1]
+			ne := lines[linePos-1][charPos+1]
+			sw := lines[linePos+1][charPos-1]
+			se := lines[linePos+1][charPos+1]
+
+			if ((nw == 'M' && se == 'S') || (nw == 'S' && se == 'M')) && ((ne == 'M' && sw == 'S') || (ne == 'S' && sw == 'M')) {
+				sum++
+			}
+
 		}
 	}
 
